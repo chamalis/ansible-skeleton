@@ -1,0 +1,42 @@
+# Containers sorted in a way that depicts the their dependencies
+version: '3'
+
+services:
+  backend:
+    build: backend
+    container_name: clock_srv
+    env_file: backend/env
+    restart: unless-stopped
+    networks:
+      - single-tier
+    expose:
+      # ports open to other containers
+      - "8000"
+
+  webserver:
+    build: webserver
+    container_name: clock_nginx
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - single-tier
+    ports:
+      - "80:80"
+
+#  frontend:
+#    build: ./frontend
+#    container_name: clock_front
+#    depends_on:
+#      - webserver
+#    networks:
+#      - single-tier
+#    ports:
+#      - "80:80"
+
+#volumes:
+#  nginxdata:
+#    driver: local
+
+networks:
+  single-tier:

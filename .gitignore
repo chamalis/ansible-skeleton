@@ -1,0 +1,8 @@
+notes.txt
+*.log
+.idea/
+*.img
+*.tar.xz
+*.BAK
+app/webserver/frontend/index.html
+vm/vm.xml
